@@ -1,0 +1,477 @@
+@import 'compass/reset';
+@import 'compass';
+@import 'mixins.scss';
+@import url(http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
+//==========Varibles==================
+$h1: 56px;
+$ff: 'Lato', sans-serif;
+$timeLineColor: rgba(0,0,0,0.9);
+$activeColor: lighten(rgba(56,107,143,1), 10);
+$bgSvgColor: rgba(0,0,0,1);
+$svgColorHover: rgba(107,201,163,1);
+$base-duration: 1s !default;
+$base-fill-mode: both !default; 
+$base-iteration-count: infinite !default;
+$breakpoint-phone: 767px;
+//==========Main styles==================
+html{
+	background-image: url(../img/36.jpg);
+	background-repeat: no-repeat;
+	font-size: 1em;
+	font-family: $ff;	
+}
+body{
+	position: relative;
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align:center;
+	@include filter-gradient(#586d8c, #f3f5e8, horizontal);
+	@include background-image(linear-gradient(left top, rgba(88,109,140,0.5) 0%,rgba(32,124,202,0.4) 27%,rgba(163,194,209,0.3) 49%,rgba(169,197,209,0.3) 50%,rgba(198,226,227,0.4) 70%,rgba(243,245,232,0.5) 100%));
+	@include box-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=50)";
+	@include single-text-shadow(1px, 1px, 1px, 1px, rgba(250,250,250,0.2));
+	-webkit-backface-visibility: hidden; // Addresses a small issue in webkit
+
+}
+h1, h2{
+	padding-top: 50px;
+}
+h1{
+	font-size: $h1;
+	text-transform: uppercase;
+
+}
+h2{
+	font-size: $h1/1.5;
+}
+header{
+	letter-spacing: 2px;
+	height: 200px;
+	margin-top: 15px;
+}
+main{
+  min-height: 300px;
+  width: 100%;
+  z-index: 2;
+}
+.container{
+  position: absolute;
+  left: 10%;
+  width: 80%;
+  text-align: center;
+}
+footer{
+	position: absolute;
+	top: 101%;
+	left: 2%;
+	
+}
+.clearfix:before, .clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.animated {
+  	@include animate-prefixer(animation-duration, $base-duration);
+  	@include animate-prefixer(animation-fill-mode, $base-fill-mode);
+
+	&.bounceIn{
+	  @include animate-prefixer(animation-duration, $base-duration * 0.75);
+	}
+}
+/*==========TimeLine================== */
+ul {
+	position: relative;
+	display: block;
+	margin: 100px;
+	z-index: 1000;
+}
+
+/* ---- Timeline elements ---- */
+
+li {
+	position: relative;
+	display: inline-block;
+	float: left;
+}
+ li::before {			
+	content: "";
+	position: absolute;
+	top: -20px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	width: 32px;
+	height: 32px;
+	border: 10px solid transparent;
+	border-radius: 50%;
+	background-size: cover;
+	background-color: $bgSvgColor;
+	background-image: url(../img/sprite.svg);
+	transition: all 300ms ease;
+	box-shadow: 0 0 0 3px black;
+} 
+.active{
+	animation: slide  5s linear;
+	
+}
+.active::before{
+	animation: activeAnim 5s ease;
+	background-color: $activeColor;
+}
+.bounceIn {
+	@include animate-prefixer(animation-name, bounceIn);
+}
+/*---------Umiejscowienie punktow na osi i animation delay---------- */
+#pktToday{
+	display: none;
+	left: 10%;
+}
+#pktOne{
+	left: -6%;
+}
+#pktTwo{
+    left: 22%;
+	-webkit-animation-delay: 0.5s;
+}
+#pktThree{
+	left: 38%;
+	-webkit-animation-delay: 1s;
+}
+#pktFour{
+	left: 70%;
+	-webkit-animation-delay: 1.5s;
+
+}
+#pktFive{
+   left: 110%;
+   -webkit-animation-delay: 2s;
+
+}
+/* ------------------Icons -------------------- */
+.icon-heart::before {
+	background-position: 0 0;
+}
+.icon-pen::before {
+	background-position: -48px 0;
+}
+.icon-like::before {
+	background-position: -96px 0;
+}
+.icon-study::before {
+	background-position: -144px 0;
+}
+.icon-lab::before {
+	background-position: -192px 0;
+}
+/* --------------- Details -------------------- */
+
+.details {
+	text-align: center;
+	text-transform:uppercase;
+	width: 100px;
+	height: 50px;
+	display: none;
+	position: absolute;
+	left: -34px;
+	top: -125px;
+	padding: 15px;
+	border-radius: 3px;
+	border: 2px solid $svgColorHover;
+	font-size: 12px;
+	background: #fff;
+	
+	strong{
+		font-weight: 900;
+	}
+
+}
+.details::before {
+	content: "";
+	position: absolute;
+	left: 55px;
+	top: 80px;
+	display: block;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-top-color: $svgColorHover;
+	border-bottom: 0;
+	
+}
+.done{
+		background: transparent;
+}
+/* ---- Hover effects ---- */
+
+li:hover {
+	cursor: pointer;
+}
+li:hover::before {
+	transform: scale(1.1);
+	//top: -13px;
+	border-width: 12px;
+	background-color: $svgColorHover;
+}
+.active:hover::before{
+	background-color:$activeColor ;
+	transform:none;
+	border-width: 10px ;
+}
+li:hover .details {
+	display: block;
+}
+/* ---- Bar ---- */
+ .bar, .before{
+  height: 20px;
+  transition: .5s;
+  -webkit-transition: .5s;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+.bar{
+  position: relative;
+  width: 100%;
+  background-color: $timeLineColor;
+}
+.bar::after{
+	content: "";
+	position: absolute;
+	width: 20%;
+	height: 80%;
+	margin: 2px 2px 0;
+	display: block;
+	@include timeLineColorSlide;
+	border-radius: 2px ;
+	animation: barAnimation 5s ease;
+}
+.before{
+  width: 100px;
+  float: left;
+  position: relative;
+  left: -3px;
+}
+/* ---------- Animations------- */
+@-webkit-keyframes barAnimation {
+   from {width: 0%;}
+   to{width: 20%;}
+}
+@keyframes barAnimation {
+   from {width: 0%;}
+   to{width: 20%;}
+}
+@-webkit-keyframes activeAnim {
+	from{background-color: $bgSvgColor;}
+	to{background-color: $activeColor;}
+}
+@keyframes activeAnim {
+	from{background-color: $bgSvgColor;}
+	to{background-color: $activeColor;}
+}
+@-webkit-keyframes fillup {
+  from   { transform: translate(-2em,0); }
+  100% { transform: translate(0,0); }
+}
+@keyframes fillup {
+  from   { transform: translate(-2em,0); }
+  100% { transform: translate(0,0); }
+}
+	@-webkit-keyframes bounceIn {
+		0% {
+			opacity: 0;
+			-webkit-transform: scale(0.3);
+		}
+
+		50% {
+			opacity: 1;
+			-webkit-transform: scale(1.05);
+		}
+
+		70% {
+			-webkit-transform: scale(0.9);
+		}
+
+		100% {
+			-webkit-transform: scale(1);
+		}
+	}
+
+	@-moz-keyframes bounceIn {
+		0% {
+			opacity: 0;
+			-moz-transform: scale(0.3);
+		}
+
+		50% {
+			opacity: 1;
+			-moz-transform: scale(1.05);
+		}
+
+		70% {
+			-moz-transform: scale(0.9);
+		}
+
+		100% {
+			-moz-transform: scale(1);
+		}
+	}
+
+	@-o-keyframes bounceIn {
+		0% {
+			opacity: 0;
+			-o-transform: scale(0.3);
+		}
+
+		50% {
+			opacity: 1;
+			-o-transform: scale(1.05);
+		}
+
+		70% {
+			-o-transform: scale(0.9);
+		}
+
+		100% {
+			-o-transform: scale(1);
+		}
+	}
+
+	@keyframes bounceIn {
+		0% {
+			opacity: 0;
+			transform: scale(0.3);
+		}
+
+		50% {
+			opacity: 1;
+			transform: scale(1.05);
+		}
+
+		70% {
+			transform: scale(0.9);
+		}
+
+		100% {
+			transform: scale(1);
+		}
+	}
+
+
+/*-----------------RWD-------------- */
+//phones
+@media  screen and (max-width: $breakpoint-phone), (max-device-width: $breakpoint-phone){
+	h1, h2{
+		padding-top: 20px;
+	}
+	h1{
+		font-size: 3em;
+	}
+	h2{
+		font-size: 2.8em;
+	}
+	header{
+		letter-spacing: 0.5px;
+		margin-top: 0;
+	}
+	.container{
+	  position: relative;
+	  left: 0;
+	  max-width: 800px;
+	  max-height: 1100px;
+	  text-align: center;
+	  margin: 0 auto;
+	}
+	.bar{
+		display: none;
+	}
+	ul {
+		margin: 10px;
+		height: 100%;
+	}
+	li{
+		width: 100%;
+		height: 200px;
+		display: block;
+		float: none;
+	}
+	 li::before {			
+		content: "";
+		position: relative;
+		display: block;
+		background-repeat: no-repeat;
+		width: 80px;
+		height:80px;
+		border: 15px solid transparent;
+		border-radius: 50%;
+		background-size: cover;
+		background-color: $bgSvgColor;
+		background-image: url(../img/sprite.svg);
+		transition: all 300ms ease;
+		top: 18px;
+		left: 30px;
+	} 
+	li:hover::before {
+		transform: none;
+		border-width: 15px;
+		background-color: $svgColorHover;
+	}
+	
+	#pktToday{
+		display: none;
+		left: 0;
+	}
+	#pktOne, #pktTwo,
+	#pktThree, #pktFour,
+	#pktFive{
+		left: 0;
+	}
+	.active{
+		animation: none;
+	}
+	.active::before{
+		animation: none;
+	}
+	.active:hover::before{
+	background-color:$activeColor ;
+	transform:none;
+	border-width: 15px ;
+}
+/* ------------------Icons -------------------- */
+	.icon-heart::before {
+		background-position: 0 0;
+	}
+	.icon-pen::before {
+		background-position: -120px 0;
+	}
+	.icon-like::before {
+		background-position: -240px 0;
+	}
+	.icon-study::before {
+		background-position: -360px 0;
+	}
+	.icon-lab::before {
+		background-position: -480px 0;
+	}
+/* --------------- Details -------------------- */
+	.details {
+		text-align: left;
+		text-transform:uppercase;
+		width: 400px;
+		display: block;
+		position: absolute;
+		left: 150px;
+		top: 8px;
+		padding: 15px;
+		border:none;
+		font-size: 30px;
+		background: inherit;
+	}
+	.details::before {
+		display: none;	
+	}
+	hr{
+		border-color: transparent;
+	}
+}

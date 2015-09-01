@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Zadanie rekrutacyjne</title>
+	<link rel="icon" href="img/fav2.gif"> 
+</head>
+<body>
+<header>
+	<h1>SoInteractive Test: TimeLine </h1>
+	<h2>Zadanie rekrutacyjne</h2>
+</header>
+<main>
+	<div class="container">
+		<ul class="timeline">
+			<li id="pktOne" class="active">
+				<span class="details">Data<hr> description</span>
+			</li>
+			<li id="pktToday"></li>
+			<li id="pktTwo">
+				<span class="details ">Data <hr>description</span>
+			</li>
+			<li id="pktThree">
+				<span class="details">Data <hr>description</span>
+			</li>
+			<li id="pktFour">
+				<span class="details">Data <hr>description</span>
+			</li>
+			<li id="pktFive">
+				<span class="details">Data <hr>description</span>
+			</li>
+		</ul>
+		<div class="bar"></div>
+	</div>
+</main>
+<div class="clearfix"></div>
+<footer>
+	<h3>Wykonanie: Agnieszka Górz</h3>
+</footer>
+<script>
+	function TimeLineElem(id, data, nazwa, ikona){
+		this.id = id;
+		this.data = data;
+		this.nazwa = nazwa;
+		this.ikona = ikona;
+	}
+	var tablica =[
+		 new TimeLineElem('pktOne', '02.06.2014', 'lorem ipsum dolorsit', 'icon-heart'),
+		 new TimeLineElem('pktTwo', '11.06.2014', 'lorem ipsum dolorsit', 'icon-lab'),
+		 new TimeLineElem('pktThree', '15.06.2014', 'lorem ipsum dolorsit', 'icon-pen'),
+		 new TimeLineElem('pktFour', '22.06.2014', 'lorem ipsum dolorsit', 'icon-study'),
+		 new TimeLineElem('pktFive', '30.06.2014', 'lorem ipsum dolorsit', 'icon-like')
+		 ]
+	  
+	 function date(n) {
+		 for( var i = 0; i < n.length; i++){
+			var id = n[i].id;
+			document.getElementById(id).classList.add(n[i].ikona);
+			document.getElementById(id).innerHTML = '<span class="details"><strong>'+n[i].data+'</strong><hr>'+n[i].nazwa+'</span>';
+			document.getElementById(id).classList.add('animated', 'bounceIn');
+	
+			var x = document.getElementById(id).classList.contains('active'); 
+			if(x){
+				document.getElementById(id).innerHTML = '<span class="details done"><strong>'+n[i].data+'</strong><hr>'+n[i].nazwa+'</span>';		
+			}
+		 }
+	 }
+	 window.onload = date(tablica);
+</script>
+</body>
+</html>

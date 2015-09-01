@@ -1,0 +1,15 @@
+@mixin animate-prefixer($property, $value...) {
+    -webkit-#{$property}: unquote('#{$value}');
+    -moz-#{$property}: unquote('#{$value}');
+    -o-#{$property}: unquote('#{$value}');
+    #{$property}: unquote('#{$value}');
+}
+@mixin test($color){
+	border: $color solid 1px;
+}
+@mixin timeLineColorSlide{
+	background-color: rgb(159,217,235);
+	@include filter-gradient(#9fd9eb, #386b8f, vertical);
+	@include background-image(linear-gradient(top, rgba(159,217,235,1) 0%,rgba(159,217,235,1) 16%,rgba(159,217,235,1) 16%,rgba(125,185,232,1) 44%,rgba(56,107,143,1) 100%));
+}
+
